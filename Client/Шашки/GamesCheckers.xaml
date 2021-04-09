@@ -1,0 +1,266 @@
+﻿<Window x:Class="Client.GamesCheckers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="GamesCheckers" Height="670" Width="640" Background="#99582A">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#BB9457">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Margin="0,5,0,0" Text="Выбирете то чем будите играть : " FontSize="15" />
+            <ComboBox Grid.Column="1" Margin="0,3,3,3" Background="#FF7C5A01" x:Name="comboBox" />
+            <Button Grid.Column="2" Background="#6F1D1B" Margin="3" Content="Подключится" FontSize="15" x:Name="Conect" Click="Conect_Click" />
+        </Grid>
+        <Grid Grid.Row="1" x:Name="Field" Width="600" Margin="10,10,10,10" Background="White">
+            <Grid.Resources>
+                <Style x:Key="BlackCell" TargetType="Button">
+                    <Setter Property="Background" Value="Black"></Setter>
+                    <EventSetter Event="Click" Handler="Cell_Click"></EventSetter>
+                </Style>
+                <Style x:Key="WhiteChecker" TargetType="Button">
+                    <Setter Property="Background" Value="#FFE6A7"></Setter>
+                    <Setter Property="Content" Value="шашка"></Setter>
+                    <EventSetter Event="Click" Handler="Checker_Click"></EventSetter>
+                </Style>
+                <Style x:Key="BlackChecker" TargetType="Button">
+                    <Setter Property="Background" Value="#432818"></Setter>
+                    <Setter Property="Content" Value="шашка"></Setter>
+                    <EventSetter Event="Click" Handler="Checker_Click"></EventSetter>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--розметка-->
+            <Button x:Name = "Cell1" Style="{StaticResource BlackCell}" Grid.Column="1" Grid.Row="0"></Button>
+            <Button x:Name = "Cell2" Style="{StaticResource BlackCell}" Grid.Column="3" Grid.Row="0"></Button>
+            <Button x:Name = "Cell3" Style="{StaticResource BlackCell}" Grid.Column="5" Grid.Row="0"></Button>
+            <Button x:Name = "Cell4" Style="{StaticResource BlackCell}" Grid.Column="7" Grid.Row="0"></Button>
+            <Button x:Name = "Cell5" Style="{StaticResource BlackCell}" Grid.Column="0" Grid.Row="1"></Button>
+            <Button x:Name = "Cell6" Style="{StaticResource BlackCell}" Grid.Column="2" Grid.Row="1"></Button>
+            <Button x:Name = "Cell7" Style="{StaticResource BlackCell}" Grid.Column="4" Grid.Row="1"></Button>
+            <Button x:Name = "Cell8" Style="{StaticResource BlackCell}" Grid.Column="6" Grid.Row="1"></Button>
+            <Button x:Name = "Cell9" Style="{StaticResource BlackCell}" Grid.Column="1" Grid.Row="2"></Button>
+            <Button x:Name = "Cell10" Style="{StaticResource BlackCell}" Grid.Column="3" Grid.Row="2"></Button>
+            <Button x:Name = "Cell11" Style="{StaticResource BlackCell}" Grid.Column="5" Grid.Row="2"></Button>
+            <Button x:Name = "Cell12" Style="{StaticResource BlackCell}" Grid.Column="7" Grid.Row="2"></Button>
+            <Button x:Name = "Cell13" Style="{StaticResource BlackCell}" Grid.Column="0" Grid.Row="3"></Button>
+            <Button x:Name = "Cell14" Style="{StaticResource BlackCell}" Grid.Column="2" Grid.Row="3"></Button>
+            <Button x:Name = "Cell15" Style="{StaticResource BlackCell}" Grid.Column="4" Grid.Row="3"></Button>
+            <Button x:Name = "Cell16" Style="{StaticResource BlackCell}" Grid.Column="6" Grid.Row="3"></Button>
+            <Button x:Name = "Cell17" Style="{StaticResource BlackCell}" Grid.Column="1" Grid.Row="4"></Button>
+            <Button x:Name = "Cell18" Style="{StaticResource BlackCell}" Grid.Column="3" Grid.Row="4"></Button>
+            <Button x:Name = "Cell19" Style="{StaticResource BlackCell}" Grid.Column="5" Grid.Row="4"></Button>
+            <Button x:Name = "Cell20" Style="{StaticResource BlackCell}" Grid.Column="7" Grid.Row="4"></Button>
+            <Button x:Name = "Cell21" Style="{StaticResource BlackCell}" Grid.Column="0" Grid.Row="5"></Button>
+            <Button x:Name = "Cell22" Style="{StaticResource BlackCell}" Grid.Column="2" Grid.Row="5"></Button>
+            <Button x:Name = "Cell23" Style="{StaticResource BlackCell}" Grid.Column="4" Grid.Row="5"></Button>
+            <Button x:Name = "Cell24" Style="{StaticResource BlackCell}" Grid.Column="6" Grid.Row="5"></Button>
+            <Button x:Name = "Cell25" Style="{StaticResource BlackCell}" Grid.Column="1" Grid.Row="6"></Button>
+            <Button x:Name = "Cell26" Style="{StaticResource BlackCell}" Grid.Column="3" Grid.Row="6"></Button>
+            <Button x:Name = "Cell27" Style="{StaticResource BlackCell}" Grid.Column="5" Grid.Row="6"></Button>
+            <Button x:Name = "Cell28" Style="{StaticResource BlackCell}" Grid.Column="7" Grid.Row="6"></Button>
+            <Button x:Name = "Cell29" Style="{StaticResource BlackCell}" Grid.Column="0" Grid.Row="7"></Button>
+            <Button x:Name = "Cell30" Style="{StaticResource BlackCell}" Grid.Column="2" Grid.Row="7"></Button>
+            <Button x:Name = "Cell31" Style="{StaticResource BlackCell}" Grid.Column="4" Grid.Row="7"></Button>
+            <Button x:Name = "Cell32" Style="{StaticResource BlackCell}" Grid.Column="6" Grid.Row="7"></Button>
+            <!--шашки-->
+            <Button x:Name="Black1" Style="{StaticResource BlackChecker}" Grid.Column="2" Grid.Row="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black2" Style="{StaticResource BlackChecker}" Grid.Column="4" Grid.Row="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black3" Style="{StaticResource BlackChecker}" Grid.Column="6" Grid.Row="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black4" Style="{StaticResource BlackChecker}" Grid.Column="8" Grid.Row="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black5" Style="{StaticResource BlackChecker}" Grid.Column="1" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black6" Style="{StaticResource BlackChecker}" Grid.Column="3" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black7" Style="{StaticResource BlackChecker}" Grid.Column="5" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black8" Style="{StaticResource BlackChecker}" Grid.Column="7" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black9" Style="{StaticResource BlackChecker}" Grid.Column="1" Grid.Row="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black10" Style="{StaticResource BlackChecker}" Grid.Column="3" Grid.Row="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black11" Style="{StaticResource BlackChecker}" Grid.Column="5" Grid.Row="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Black12" Style="{StaticResource BlackChecker}" Grid.Column="0" Grid.Row="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White1" Style="{StaticResource WhiteChecker}" Grid.Column="0" Grid.Row="8">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White2" Style="{StaticResource WhiteChecker}" Grid.Column="0" Grid.Row="5">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White3" Style="{StaticResource WhiteChecker}" Grid.Column="2" Grid.Row="5">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White4" Style="{StaticResource WhiteChecker}" Grid.Column="6" Grid.Row="5">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White5" Style="{StaticResource WhiteChecker}" Grid.Column="1" Grid.Row="6">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White6" Style="{StaticResource WhiteChecker}" Grid.Column="3" Grid.Row="6">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White7" Style="{StaticResource WhiteChecker}" Grid.Column="5" Grid.Row="6">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White8" Style="{StaticResource WhiteChecker}" Grid.Column="7" Grid.Row="6">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White9" Style="{StaticResource WhiteChecker}" Grid.Column="4" Grid.Row="5">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White10" Style="{StaticResource WhiteChecker}" Grid.Column="2" Grid.Row="7">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White11" Style="{StaticResource WhiteChecker}" Grid.Column="4" Grid.Row="7">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="White12" Style="{StaticResource WhiteChecker}" Grid.Column="6" Grid.Row="7">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="65"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
