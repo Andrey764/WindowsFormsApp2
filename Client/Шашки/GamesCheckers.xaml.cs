@@ -128,10 +128,10 @@ namespace Client
         private void DataSynchronization(string[] strs)
         {
             if (strs[1].Contains("White"))
-                Move2(ListWhiteCheckers[strs[1]], CellColection[strs[2]]);
+                Move2(ListWhiteCheckers[strs[1]], CellColection[strs[2]], strs[strs.Length - 1]);
             else if (strs[1].Contains("Black"))
                 Move2(ListBlackCheckers[strs[1]], CellColection[strs[2]]);
-            if (strs.Length == 4)
+            if (strs.Length >= 4)
             {
                 if (strs[3].Contains("White"))
                 {
@@ -234,21 +234,26 @@ namespace Client
         private void Move(Button Where)
         {
             Move2(CurrentChecker, Where);
-            //if (WillThereBeAMove())
-            //{
-            //    Field.IsEnabled = true;
-            //}
-            if (HitMessage == "")
+            if (HitMessage == null)
                 Send($"{userName}|{CurrentChecker.Name}|{Where.Name}");
             else
+            {
+                if (WillThereBeAMove())
+                {
+                    Field.IsEnabled = true;
+                    HitMessage += "|Block!";
+                }
                 Send($"{userName}|{CurrentChecker.Name}|{Where.Name}|{HitMessage}");
+                HitMessage = null;
+            }
         }
 
-        private void Move2(Button FromWhere, Button Where)
+        private void Move2(Button FromWhere, Button Where, string Block = "")
         {
             Grid.SetRow(FromWhere, Grid.GetRow(Where));
             Grid.SetColumn(FromWhere, Grid.GetColumn(Where));
-            Field.IsEnabled = !Field.IsEnabled;
+            if (Block != "Block!")
+                Field.IsEnabled = !Field.IsEnabled;
         }
 
         /// <summary>
@@ -286,100 +291,46 @@ namespace Client
         /// <returns></returns>
         private bool WillThereBeAMove()
         {
-            bool rezault = false;
+            string selectionColor = "";
             if (CurrentChecker.Name.Contains("White"))
-            {
-                Moving(-1, -1);
-                if (!BlackIsOamFree(CurrentChecker))
-                {
-                    Moving(-1, -1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(+1, +1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(+1, +1);
-                Moving(-1, +1);
-                if (!BlackIsOamFree(CurrentChecker))
-                {
-                    Moving(-1, +1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(+1, -1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(+1, -1);
-                Moving(+1, -1);
-                if (!BlackIsOamFree(CurrentChecker))
-                {
-                    Moving(+1, -1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(-1, +1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(-1, +1);
-                Moving(+1, +1);
-                if (!BlackIsOamFree(CurrentChecker))
-                {
-                    Moving(+1, +1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(-1, -1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(-1, -1);
-            }
+                selectionColor = "White";
             if (CurrentChecker.Name.Contains("Black"))
-            {
-                Moving(-1, -1);
-                if (!WhiteIsOamFree(CurrentChecker))
-                {
-                    Moving(-1, -1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(+1, +1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(+1, +1);
-                Moving(-1, +1);
-                if (!WhiteIsOamFree(CurrentChecker))
-                {
-                    Moving(-1, +1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(+1, -1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(+1, -1);
-                Moving(+1, -1);
-                if (!WhiteIsOamFree(CurrentChecker))
-                {
-                    Moving(+1, -1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(-1, +1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(-1, +1);
-                Moving(+1, +1);
-                if (!WhiteIsOamFree(CurrentChecker))
-                {
-                    Moving(+1, +1);
-                    rezault = IsOamFree(CurrentChecker);
-                    Moving(-1, -1);
-                    if (rezault)
-                        return rezault;
-                }
-                Moving(-1, -1);
-            }
-            return rezault;
+                selectionColor = "Black";
+            if (!WillThereBeAMovePart2(selectionColor, -1, -1))
+                if (!WillThereBeAMovePart2(selectionColor, -1, +1))
+                    if (!WillThereBeAMovePart2(selectionColor, +1, +1))
+                        if (!WillThereBeAMovePart2(selectionColor, +1, -1))
+                            return false;
+            return true;
         }
 
-        private void Moving(int pos1, int pos2)
+        /// <summary>
+        /// проверяет возможен ли удар если переместить шашку на указаные значение
+        /// </summary>
+        /// <param name="selectionColor">true если текущая шашка белая false если черная</param>
+        /// <param name="column">смещение клетки от теущей позиции шашки по ширине</param>
+        /// <param name="row">мещение клетки от теущей позиции шашки по высоте</param>
+        /// <returns></returns>
+        private bool WillThereBeAMovePart2(string selectionColor, int column, int row)
         {
-            Grid.SetColumn(CurrentChecker, Grid.GetColumn(CurrentChecker) + pos1);
-            Grid.SetRow(CurrentChecker, Grid.GetRow(CurrentChecker) + pos2);
+            if (selectionColor == "White" ? !BlackIsOamFree(Moving(column, row)) : !WhiteIsOamFree(Moving(column, row)))
+                if (IsOamFree(Moving(column * 2, row * 2)))
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// возвращает улеточку если она есть рядом с текущей шашкой(смещение по высоте и ширине в зависимости от переданых параметров)
+        /// </summary>
+        /// <param name="column">смещение от текущей шашки по ширине</param>
+        /// <param name="row">смещение от текущей шашки по высоте</param>
+        /// <returns>клеточка если она там есть</returns>
+        private Button Moving(int column, int row)
+        {
+            foreach (var item in CellColection)
+                if (Grid.GetColumn(item.Value) == Grid.GetColumn(CurrentChecker) + column && Grid.GetRow(item.Value) == Grid.GetRow(CurrentChecker) + row)
+                    return CellColection[item.Key];
+            return null;
         }
 
         /// <summary>

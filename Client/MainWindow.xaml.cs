@@ -146,7 +146,6 @@ namespace Client
 
         private void StartGameCheckers_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Данная функция находится на стадии розработки!!!");
             GamesCheckers checkers;
             if (client == null)
                 checkers = new GamesCheckers(userName);
