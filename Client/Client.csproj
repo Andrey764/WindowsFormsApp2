@@ -70,10 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Шашки\GamesCheckers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Крестики нолики\GameXO.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,9 +81,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Шашки\GamesCheckers.xaml.cs">
-      <DependentUpon>GamesCheckers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Крестики нолики\GameXO.xaml.cs">
       <DependentUpon>GameXO.xaml</DependentUpon>

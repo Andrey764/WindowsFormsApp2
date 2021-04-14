@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Client
 {
@@ -32,23 +28,12 @@ namespace Client
         /// </summary>
         private void StartView()
         {
-            GameList.IsEnabled = false;
+            StartGameXO.IsEnabled = false;
             Ratings.IsEnabled = false;
 
-            Games1.Items.Clear();
-            Games1.Items.Add("Все игры");
-            Games1.Items.Add("Шашки");
-            Games1.Items.Add("Крестики Нолики");
-
             Criteria.Items.Clear();
-            Criteria.Items.Add("Все мои игры");
             Criteria.Items.Add("Все мои игры в крестики нолики");
-            Criteria.Items.Add("Все мои игры в шашки");
-            Criteria.Items.Add("Все победы во всех играх");
-            Criteria.Items.Add("Все проиграшы во всех играх");
-            Criteria.Items.Add("Все победы в шашках");
             Criteria.Items.Add("Все победы в крестиках ноликах");
-            Criteria.Items.Add("Все проиграшы в шашках");
             Criteria.Items.Add("Все проиграшы в крестиках ноликах");
         }
 
@@ -91,7 +76,7 @@ namespace Client
                 {
                     string s = GetMessage(client);
                     if (s == "Вход выполнен")
-                        Dispatcher.Invoke(new Action(() => { MessageBox.Show(s); GameList.IsEnabled = Ratings.IsEnabled = true; }));
+                        Dispatcher.Invoke(new Action(() => { MessageBox.Show(s); StartGameXO.IsEnabled = Ratings.IsEnabled = true; }));
                     else if (s.Contains("побед") || s.Contains("против"))
                         Dispatcher.Invoke(new Action(() => { RatingRezault.Text = s; }));
                     else
@@ -140,25 +125,15 @@ namespace Client
         private void QuestLogsIn_Click(object sender, RoutedEventArgs e)
         {
             userName = UserName.Text;
-            GameList.IsEnabled = true;
+            StartGameXO.IsEnabled = true;
             UserName.Text = "";
-        }
-
-        private void StartGameCheckers_Click(object sender, RoutedEventArgs e)
-        {
-            GamesCheckers checkers;
-            if (client == null)
-                checkers = new GamesCheckers(userName);
-            else
-                checkers = new GamesCheckers(client, endPoint, address, userName);
-            checkers.ShowDialog();
         }
 
         private void SearchTop_Click(object sender, RoutedEventArgs e)
         {
             int tmp = 0;
             if (int.TryParse(TopCount.Text, out tmp))
-                Send($"{Games1.SelectedItem}|{TopCount.Text}|Request|Top");
+                Send($"Крестики Нолики|{TopCount.Text}|Request|Top");
             else
                 MessageBox.Show($"{TopCount.Text} не является целочесленым числом!!!");
         }
